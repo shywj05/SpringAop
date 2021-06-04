@@ -1,0 +1,47 @@
+package kr.or.ddit.service.impl;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.mapper.LprodMapper;
+import kr.or.ddit.service.LprodService;
+import kr.or.ddit.vo.LprodVO;
+
+@Service
+public class LprodServiceImpl implements LprodService {
+	@Autowired
+	LprodMapper mapper;
+	
+	@Override
+	public void insertUser(Map<String, Object> map) {
+		mapper.insert(map);
+	}
+
+	@Override
+	public List<LprodVO> getUserList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteUser(String id) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public LprodVO getUser(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateUser(LprodVO user) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

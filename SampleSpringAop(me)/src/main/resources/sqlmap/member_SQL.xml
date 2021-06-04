@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+	<insert id="insert" parameterType="hashMap">
+		INSERT INTO MEMBER(MEMBERID, PASSWORD, NAME, EMAIL, REGDATE)
+		VALUES(#{lprodId}, #{lprodGu}, #{lprodNm})
+	</insert>
+
+	<select id="select_detail" parameterType="String" resultType="kr.or.ddit.member.vo.MemberVO">
+		SELECT MEMBERID memberId, PASSWORD password, NAME name, EMAIL email, REGDATE regdate
+		FROM LPROD
+		WHERE MEMBERID = #{id}
+	</select>
+
+	<select id="select_list" parameterType="hashMap" resultType="kr.or.ddit.member.vo.MemberVO">
+		SELECT MEMBERID memberId, PASSWORD password, NAME name, EMAIL email, REGDATE regdate
+		FROM MEMBER
+		WHERE 1 = 1
+		ORDER BY MEMBERID DESC
+	</select>
+
+	<update id="update" parameterType="hashMap">
+	
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE MEMBER
+		WHERE MEMBERID = #{id}
+	</delete>
+</mapper>

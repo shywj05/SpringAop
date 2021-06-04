@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lprod">
+	<insert id="insert" parameterType="hashMap">
+		<selectKey order="BEFORE" keyProperty="lprodId" resultType="int">
+			SELECT NVL(MAX(LPROD_ID),0)+1 FROM LPROD
+		</selectKey>
+		INSERT INTO LPROD(LPROD_ID, LPROD_GU, LPROD_NM)
+		VALUES(
+		#{lprodId}, #{lprodGu}, #{lprodNm}
+		)
+	</insert>
+
+	<select id="select_detail" parameterType="String" resultType="kr.or.ddit.lprod.vo.LprodVO">
+		SELECT LPROD_ID lprodId, LPROD_GU lprodGu, LPROD_NM lprodNm
+		FROM LPROD
+		WHERE LPROD_ID = #{id}
+	</select>
+
+	<select id="select_list" parameterType="hashMap" resultType="kr.or.ddit.lprod.vo.LprodVO">
+		SELECT LPROD_ID lprodId, LPROD_GU lprodGu, LPROD_NM lprodNm
+		FROM LPROD
+		WHERE 1 = 1
+		ORDER BY LPROD_ID DESC
+	</select>
+	
+	<update id="update" parameterType="hashMap">
+		UPDATE LPROD
+		SET    LPROD_GU = #{lprodGu}, LPROD_NM = #{lprodNm}
+		WHERE  LPROD_ID = #{lprodId}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		DELETE LPROD
+		WHERE  LPROD_ID = #{id}
+	</delete>
+</mapper>

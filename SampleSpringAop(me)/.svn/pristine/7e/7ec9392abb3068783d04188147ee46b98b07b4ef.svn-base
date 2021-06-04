@@ -1,0 +1,40 @@
+package kr.or.ddit.mapper;
+
+import java.util.List;
+import java.util.Map;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import kr.or.ddit.vo.LprodVO;
+
+@Repository
+public class LprodMapper {
+	@Autowired
+	SqlSessionTemplate sqlSessionTemplate;
+	
+	public int insert(Map<String, Object> map) {
+		return this.sqlSessionTemplate.insert("lprod.insert",map);
+	};
+	
+	public List<LprodVO> readAll(){
+		List<LprodVO> list = null;
+		
+		return list;
+	};
+	
+	public void update(LprodVO vo) {
+		
+		
+	};
+	
+	public void delete(String id) {
+		
+	};
+	
+	public LprodVO read(String id) {
+		LprodVO vo = new LprodVO();
+		return vo;
+	};
+}

@@ -2,30 +2,76 @@
 <!-- Sql Mapper -->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
+	<!-- <resultMap id="listEtcVo" type="kr.or.ddit.MemberVo"> -->
+	<!-- <result column="memberid" property="memberid" /> -->
+	<!-- <result column="password" property="password" /> -->
+	<!-- <result column="name" property="name" /> -->
+	<!-- <result column="email" property="email" /> -->
+	<!-- <result column="regdate" property="regdate" /> -->
+	<!-- <result column="birthday" property="birthday" /> -->
+	<!-- </resultMap> -->
+
+
 	<insert id="insert" parameterType="hashMap">
-		INSERT INTO MEMBER(MEMBERID, PASSWORD, NAME, EMAIL, REGDATE)
-		VALUES(#{lprodId}, #{lprodGu}, #{lprodNm})
+	<![CDATA[
+		INSERT INTO MEMBER(memberid, password, name, email, regdate)
+		VALUES(#{memberid}, #{password}, #{name}, #{email}, sysdate)
+	]]>
 	</insert>
 
 	<select id="select_detail" parameterType="String" resultType="kr.or.ddit.member.vo.MemberVO">
-		SELECT MEMBERID memberId, PASSWORD password, NAME name, EMAIL email, REGDATE regdate
-		FROM LPROD
+		SELECT MEMBERID memberid, PASSWORD password, NAME name, EMAIL email, REGDATE regdate
+		FROM MEMBER
 		WHERE MEMBERID = #{id}
 	</select>
 
 	<select id="select_list" parameterType="hashMap" resultType="kr.or.ddit.member.vo.MemberVO">
-		SELECT MEMBERID memberId, PASSWORD password, NAME name, EMAIL email, REGDATE regdate
+		SELECT MEMBERID memberid, PASSWORD password, NAME name, EMAIL email, REGDATE regdate
 		FROM MEMBER
 		WHERE 1 = 1
-		ORDER BY MEMBERID DESC
+		ORDER BY memberid DESC
+		
+		        select s.rnum, s.MEMBERID memberid, s.PASSWORD password, s.NAME name,s.EMAIL as email, s.REGDATE regdate
+        from (
+        select rownum rnum,t.*
+        from(
+           select MEMBERID as memberid, PASSWORD as password, NAME as name,EMAIL as email, REGDATE as regdate
+           from member
+            where 1=1
+            order by memberid desc
+            )t
+         )s
+         where s.rnum between to_number(#{pageNum})*10-9 and to_number(#{pageNum})*10
 	</select>
 
 	<update id="update" parameterType="hashMap">
-	
+ 	<![CDATA[
+		UPDATE MEMBER
+		SET    PASSWORD = #{password}, NAME = #{name}, EMAIL = #{email}, REGDATE = sysdate
+		WHERE  MEMBERID = #{memberid}
+ 	]]>
 	</update>
 
 	<delete id="delete" parameterType="String">
 		DELETE MEMBER
 		WHERE MEMBERID = #{id}
 	</delete>
+
+	<!-- <select id="select_list_etc" parameterType="hashMap" resultType="hashMap"> -->
+	<!-- resultMap="listEtcVo"> -->
+	<!-- SELECT A.MEMBERID memberid, A.PASSWORD password, A.NAME name, -->
+	<!-- A.EMAIL email, A.REGDATE regdate, B.BIRTHDAY birthday -->
+	<!-- FROM MEMBER A, MEMBER_ECT B -->
+	<!-- WHERE A.MEMBERID = B.MEMBERID -->
+	<!-- </select> -->
+	
+	<select id="select_count" resultType="int">
+		SELECT count(*) cnt
+		FROM   MEMBER
+	</select>
+
+
+
+
+
 </mapper>

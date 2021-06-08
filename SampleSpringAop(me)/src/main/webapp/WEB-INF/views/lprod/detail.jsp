@@ -71,8 +71,7 @@
 		</div>
 	</form>
 	<script type="text/javascript">
-	fn_showToggle("<%=mode%>
-		");
+	fn_showToggle("<%=mode%>");
 	</script>
 </body>
 </html>

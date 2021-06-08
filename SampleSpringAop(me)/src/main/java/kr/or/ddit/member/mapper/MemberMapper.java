@@ -1,5 +1,6 @@
 package kr.or.ddit.member.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +25,7 @@ public class MemberMapper {
 	public List<MemberVO> readAll(Map<String, Object> map) {
 		// namespace가 lprod이고 id가 select_list인 xml을 찾아서 간다.
 		List<MemberVO> list = this.sqlSessionTemplate.selectList("member.select_list", map);
-		log.info("list : " + list);
+		log.info("멤버의 list : " + list);
 		return list;
 	};
 
@@ -42,5 +43,13 @@ public class MemberMapper {
 		log.info("vo : " + vo.toString());
 
 		return vo;
+	};
+	
+	public List<Map<String, Object>> selectListEtc(String id) {
+		return this.sqlSessionTemplate.selectList("member.select_list_etc", id);
+	}
+
+	public int count() {
+		return this.sqlSessionTemplate.selectOne("member.select_count");
 	};
 }

@@ -1,33 +1,30 @@
 package kr.or.ddit.member.vo;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class MemberVO {
-
-	private String memberId;
+	private String memberid;
 	private String password;
 	private String name;
 	private String email;
-	private Date regDate;
+	private Date regdate;
+	
+	public MemberVO() {}
 
-	public MemberVO() {
-
-	}
-
-	public MemberVO(String memberId, String password, String name, String email, Date regDate) {
-		this.memberId = memberId;
+	public MemberVO(String memberid, String password, String name, String email, Date regdate) {
+		this.memberid = memberid;
 		this.password = password;
 		this.name = name;
 		this.email = email;
-		this.regDate = regDate;
+		this.regdate = regdate;
 	}
 
-	public String getMemberId() {
-		return memberId;
+	public String getMemberid() {
+		return memberid;
 	}
 
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
+	public void setMemberid(String memberid) {
+		this.memberid = memberid;
 	}
 
 	public String getPassword() {
@@ -54,18 +51,19 @@ public class MemberVO {
 		this.email = email;
 	}
 
-	public Date getRegDate() {
-		return regDate;
+	public Date getRegdate() {
+		return regdate;
 	}
 
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
 	}
 
 	@Override
 	public String toString() {
-		return "MemberVO [memberId=" + memberId + ", password=" + password + ", name=" + name + ", email=" + email
-				+ ", regDate=" + regDate + "]";
+		return "MemberVO [memberid=" + memberid + ", password=" + password + ", name=" + name + ", email=" + email
+				+ ", regdate=" + regdate + "]";
 	}
-
+	
+	
 }

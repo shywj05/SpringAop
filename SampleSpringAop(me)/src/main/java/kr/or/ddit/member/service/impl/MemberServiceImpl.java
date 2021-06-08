@@ -13,35 +13,44 @@ import kr.or.ddit.member.vo.MemberVO;
 @Service
 public class MemberServiceImpl implements MemberService {
 
+	@Autowired
+	MemberMapper mapper;
+	
 	@Override
 	public int insertMember(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return 0;
+		return mapper.insert(map);
 	}
 
 	@Override
 	public List<MemberVO> getMemberList(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+		List<MemberVO> memberVo = mapper.readAll(map);
+		
+		return memberVo;
 	}
 
 	@Override
 	public int deleteMember(String id) {
-		// TODO Auto-generated method stub
-		return 0;
+		return mapper.delete(id);
 	}
 
 	@Override
 	public MemberVO getMember(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		MemberVO memberVo = mapper.read(id);	
+		
+		return memberVo;
+	}
+
+	//map : {"memberid":"13","password":"1234","name","홍길동"}
+	@Override
+	public int updateMember(Map<String, Object> map) {
+		return mapper.update(map);
 	}
 
 	@Override
-	public int updateMember(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int selectCount() {
+		return mapper.count();
 	}
+
 
 
 }

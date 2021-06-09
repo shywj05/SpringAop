@@ -57,17 +57,19 @@ public class MemberController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/member/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/member/list")
 	public ModelAndView memberList(@RequestParam Map<String, Object> map, ModelAndView mav) {
 		log.info("회원목록 보는 곳");
 		
 		int total = this.service.selectCount();
+		
 		String startPageNum = (String)(map.get("pageNum") == null? "1" : map.get("pageNum"));
 		int pageNum = Integer.parseInt(startPageNum);
-		
-		List<MemberVO> memberListVo = this.service.getMemberList(map);
-
-		mav.addObject("memberListVo", new MemberPage(total, pageNum, size, memberListVo));
+		map.put("pageNum", pageNum);
+		List<MemberVO> memberList = this.service.getMemberList(map);
+		System.out.println("멤버VO리스트의 값은 : " + memberList);
+		mav.addObject("selectOpt", map.get("selectOpt"));
+		mav.addObject("memberListVo", new MemberPage(total, pageNum, size, memberList));
 		mav.setViewName("member/list");
 
 		return mav;
@@ -81,7 +83,7 @@ public class MemberController {
 		if (session != null) {
 			session.invalidate();
 		}
-		mav.setViewName("redirect:/list");
+		mav.setViewName("redirect:/member/list");
 
 		return mav;
 	}

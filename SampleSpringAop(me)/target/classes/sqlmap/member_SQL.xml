@@ -26,22 +26,25 @@
 	</select>
 
 	<select id="select_list" parameterType="hashMap" resultType="kr.or.ddit.member.vo.MemberVO">
-		SELECT MEMBERID memberid, PASSWORD password, NAME name, EMAIL email, REGDATE regdate
-		FROM MEMBER
-		WHERE 1 = 1
-		ORDER BY memberid DESC
-		
-		        select s.rnum, s.MEMBERID memberid, s.PASSWORD password, s.NAME name,s.EMAIL as email, s.REGDATE regdate
-        from (
-        select rownum rnum,t.*
-        from(
-           select MEMBERID as memberid, PASSWORD as password, NAME as name,EMAIL as email, REGDATE as regdate
-           from member
-            where 1=1
-            order by memberid desc
-            )t
-         )s
-         where s.rnum between to_number(#{pageNum})*10-9 and to_number(#{pageNum})*10
+		SELECT S.RNUM, S.MEMBERID memberid, S.PASSWORD password, S.NAME name, S.EMAIL email, S.REGDATE regdate
+		FROM (SELECT ROWNUM RNUM, T.*
+		      FROM(SELECT MEMBERID memberid, PASSWORD password, NAME name, EMAIL email, REGDATE regdate
+		           	 	   FROM MEMBER
+		            	   WHERE 1=1
+		            	   ORDER BY memberid DESC
+		            	   ) T
+		         	  ) S
+		WHERE S.RNUM BETWEEN TO_NUMBER(#{pageNum})*10-9 AND TO_NUMBER(#{pageNum})*10
+		<if test="selectOpt != null and selectOpt != ''">
+			<choose>
+				<when test="selectOpt.equals('memberid')">
+					AND MEMBERID LIKE '%' || #{keyWord} || '%'
+				</when>
+				<when test="selectOpt.equals('name')">
+					AND NAME LIKE '%' || #{keyWord} || '%'
+				</when>
+			</choose>
+		</if>
 	</select>
 
 	<update id="update" parameterType="hashMap">

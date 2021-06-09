@@ -4,6 +4,12 @@
 <html>
 <head>
 <script type="text/javascript">
+// 	function fn_chk(){
+// 		var varSelectOpt = document.getElementById("selectOpt");
+// 		var varKeyWord = document.getElementByid("keyWord");
+		
+// 	}
+	
 	function fn_addMem() {
 		location.href = "/member/signup";
 	}
@@ -12,7 +18,18 @@
 </head>
 <body>
 	<h1>회원정보 정보 목록</h1>
-	<input type="button" value="회원추가하기" onclick="fn_addMem()">
+	<form method="get" action="">
+		<select name="selectOpt" id="selectOpt">
+			<option>전체</option>
+			<option value="memberid" <c:if test="${selectOpt=='memberid'}"> selected="selected" </c:if>>아이디</option>
+			<option value="name" <c:if test="${selectOpt=='name'}"> selected="selected" </c:if>>이름</option>
+		</select>
+		<input type="text" placeholder="검색" id="keyWord" name="keyWord" value="${keyWord}" onclick="document.getElementById('spanKeyWord').innerHTML='';" />
+		<input type="submit" value="회원검색"/>
+		<span id="spanKeyWord"></span>
+	</form>
+	<br/>
+	<input type="button" value="회원추가하기" onclick="fn_addMem()">&nbsp;
 	<br />
 	<br />
 	<table border="1" style="width: 50%;">
@@ -24,27 +41,22 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="i" items="${memberListVo}">
+			<c:forEach var="i" items="${memberListVo.content}">
 				<tr>
 					<td><a href="/member/detailMem?memberid=${i.memberid}">${i.memberid}</a></td>
 					<td>${i.name}</td>
 					<td>${i.email}</td>
 				</tr>
 			</c:forEach>
-			<tr>
-				<td>&nbsp;</td>
-				<td><c:if test=""></c:if></td>
-				<td colspan="3" style="text-align: right;"><input type="button" value="페이징 처리" onclick=""></td>
-			</tr>
 			<!-- ------------------ 페이지 처리 시작 ---------------------- -->
 			<c:if test="${memberListVo.hasArticles()}">
 				<tr>
-					<td colspan="4" style="text-align: center;"><c:if test="${memberListVo.startPage>5}">
-							<a href="/member/list?pageNum=${memberListVo.startPage-5}">[이전]</a>
+					<td colspan="4" style="text-align: center;"><c:if test="${memberListVo.startPage > 5}">
+							<a href="/member/list?pageNum=${memberListVo.startPage - 5}">[이전]</a>
 						</c:if> <c:forEach var="pNo" begin="${memberListVo.startPage}" end="${memberListVo.endPage }">
 							<a href="/member/list?pageNum=${pNo}">[${pNo}]</a>
 						</c:forEach> <c:if test="${memberListVo.endPage < memberListVo.totalPages}">
-							<a href="/member/list?pageNum=${memberListVo.startPage+5}">[다음]</a>
+							<a href="/member/list?pageNum=${memberListVo.startPage + 5}">[다음]</a>
 						</c:if></td>
 				</tr>
 			</c:if>

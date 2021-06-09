@@ -29,9 +29,12 @@
 		<span id="spanKeyWord"></span>
 	</form>
 	<br/>
-	<input type="button" value="회원추가하기" onclick="fn_addMem()">&nbsp;
-	<br />
-	<br />
+	<c:if test="${memberInfo != null}">
+		<input type="button" value="회원추가하기" onclick="fn_addMem()">&nbsp;
+		<input type="button" value="제품목록" onclick="location.href='/list'">
+		<br />
+		<br />
+	</c:if>
 	<table border="1" style="width: 50%;">
 		<thead>
 			<tr>

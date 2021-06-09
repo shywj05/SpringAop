@@ -24,6 +24,7 @@
 <body>
 	<c:if test="${!empty memberVo}">
 	${memberVo.name}(${memberVo.memberid})님, 환영합니다.
+		<input type="button" value="제품목록" onclick="location.href='/list'">
 	<script type="text/javascript">
 		opener.location.href = "/list";
 

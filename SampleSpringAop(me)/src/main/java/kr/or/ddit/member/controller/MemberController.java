@@ -68,6 +68,7 @@ public class MemberController {
 		map.put("pageNum", pageNum);
 		List<MemberVO> memberList = this.service.getMemberList(map);
 		System.out.println("멤버VO리스트의 값은 : " + memberList);
+		mav.addObject("memberInfo", memberList);
 		mav.addObject("selectOpt", map.get("selectOpt"));
 		mav.addObject("memberListVo", new MemberPage(total, pageNum, size, memberList));
 		mav.setViewName("member/list");

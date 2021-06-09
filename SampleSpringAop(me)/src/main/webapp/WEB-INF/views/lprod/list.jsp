@@ -19,8 +19,9 @@ function fn_login() {
 	<h1>상품분류 정보 목록</h1>
 	<c:if test="${!empty memberVo}">
 		${memberVo.name}(${memberVo.memberid})님, 안녕하세요
+		
 		<form action="/member/logout" method="post">
-			<input type="submit" value="로그아웃">
+			<input type="submit" value="로그아웃">&nbsp;<input type="button" value="회원목록" onclick="location.href='/member/list'">
 		</form>
 	</c:if>
 	<c:if test="${empty memberVo}">
